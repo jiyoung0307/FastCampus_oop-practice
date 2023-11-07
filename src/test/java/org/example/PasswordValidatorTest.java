@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 public class PasswordValidatorTest {
     /**
@@ -18,4 +19,15 @@ public class PasswordValidatorTest {
         assertThatCode(() -> PasswordValidator.validate("zy_zero37"))
                 .doesNotThrowAnyException();
     }
+
+    @DisplayName("비밀번호가 8자 미만 또는 12자 초과인 경우 `llegalArgumentException` 예외를 발생한다.")
+    @Test
+    void validatePasswordTest2(){
+
+        assertThatCode(() -> PasswordValidator.validate("aabb"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("비밀번호는 최소 8자 이상 12자 이하여야 한다.");
+    }
+
+
 }
